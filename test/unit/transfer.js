@@ -24,20 +24,52 @@ describe('Transfer', function(){
   });
 
   describe('constructor', function(){
-    it('should create a new transfer', function(){
+    it('should create a new transfer object', function(){
       var obj = {
         amount:'50',
-        toAccountId: Mongo.ObjectId().toString(),
-        fromAccountId: Mongo.ObjectId().toString(),
-        date: '2014-8-8', fee: '25'
+        toAccountId: Mongo.ObjectID().toString(),
+        fromAccountId: Mongo.ObjectID().toString(),
+        date: '2014-8-8',
+        fee: '25'
       };
       var t = new Transfer(obj);
 
       expect(t).to.be.okay;
       expect(t).to.be.instanceof(Transfer);
       expect(t.amount).to.equal(50.00);
-      /*expect(t.toAccountId).to.be.instanceof(Mongo.ObjectID);*/
+      expect(t.date).to.be.instanceof(Date);
+      expect(t.toAccountId).to.be.instanceof(Mongo.ObjectID);
+      expect(t.fromAccountId).to.be.instanceof(Mongo.ObjectID);
       expect(t.fee).to.equal(25);
+    });
+  });
+
+  describe('.save', function(){
+    it('should save a transfer object', function(done){
+      var obj = {
+        amount: '50',
+        toAccountId: Mongo.ObjectID().toString(),
+        fromAccountId: Mongo.ObjectID().toString(),
+        date: '2014-8-8',
+        fee: '25'
+      };
+      Transfer.save(obj, function(transfer) {
+        expect(transfer).to.be.instanceof(Transfer);
+        expect(transfer._id).to.be.instanceof(Mongo.ObjectID);
+        done();
+      });
+    });
+  });
+
+  describe('.findByAccountId', function(){
+    it('should find Transfers by accountId', function(done){
+        var id = '53e5659ee1eb2778810b9d4a';
+        Transfer.findByAccountId(id, function(err, transfers) {
+          expect(transfers).to.be.okay;
+          expect(transfers).to.not.be.a('null');
+          expect(transfers).to.have.length.gt(0);
+          done();
+        });
     });
   });
 });
