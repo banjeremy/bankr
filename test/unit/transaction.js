@@ -28,7 +28,7 @@ describe('Transaction', function(){
       var obj = {
         accountId: new Mongo.ObjectID().toString(),
         date: new Date(),
-        type: 'Checking',
+        type: 'Withdrawal',
         amount: '400.00',
         fee: '50.00'
       };
@@ -47,7 +47,7 @@ describe('Transaction', function(){
       var obj = {
         accountId: new Mongo.ObjectID().toString(),
         date: new Date(),
-        type: 'Checking',
+        type: 'Withdrawal',
         amount: '400.00',
         fee: '50.00'
       };
