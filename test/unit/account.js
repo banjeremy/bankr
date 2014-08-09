@@ -90,7 +90,7 @@ describe('Account', function(){
       var id = '53e5659ee1eb2778810b9d4a';
       var pin = '9505';
 
-      var a = Account.findById(id, function(account){
+      var a = Account.findById(id, function(a){
           expect(a.pin).to.equal(pin);
           expect(a.validatePin(pin)).to.be.true;
           done();

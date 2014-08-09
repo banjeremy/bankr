@@ -35,6 +35,10 @@ Account.findById = function(id, cb) {
   });
 };
 
+Account.prototype.validatePin = function(pin) {
+  return pin === this.pin;
+};
+
 // Private function
 function changePrototype(obj){
   var account = _.create(Account.prototype, obj);
